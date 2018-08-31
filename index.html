@@ -33,7 +33,7 @@
             idInterval = setInterval('topTop();', 1);
         }
 
-        //SCRIPT MENU
+        //MENU
         ddsmoothmenu.init({
             mainmenuid: "smoothmenu1", //menu DIV id
             orientation: 'v', //Horizontal or vertical menu: Set to "h" or "v"
@@ -157,10 +157,12 @@
         <button type="submit">Enviar</button><br /><br />
     </form>
 
-    <img class='js-lightBox' data-group='group-4' src="img/1.jpg" width="190" height="200" />
-    <img class='js-lightBox' data-group='group-4' src="img/2.jpg" width="190" height="200" />
-    <img class='js-lightBox' data-group='group-4' src="img/3.jpg" width="190" height="200" />
-    <br /><br />
+    <div class="gallery">
+        <img class='js-lightBox' data-group='group-4' src="img/1.jpg" width="190" height="200" />
+        <img class='js-lightBox' data-group='group-4' src="img/2.jpg" width="190" height="200" />
+        <img class='js-lightBox' data-group='group-4' src="img/3.jpg" width="190" height="200" />
+        <br /><br />
+    </div>
 
     <script>jQuery(document).ready(function (e) { e.DNLightBox({ speed: 500 }) });</script>
 

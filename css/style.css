@@ -19,3 +19,12 @@ ul:not(#subitem) {
     margin: auto;
     width: 70%;
 }
+
+.ddsmoothmenu-v { background-color: #F4F4F4; }
+
+#form1 { padding: 10px 20px; }
+
+.gallery {
+    width: 50%;
+    margin: auto;
+}
