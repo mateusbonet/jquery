@@ -1,0 +1,21 @@
+
+
+#smoothmenu1 ul li { display: inline-grid; }
+
+#smoothmenu1 ul li:not(#subitem) { width: 20%; }
+
+#smoothmenu1 a { 
+    padding: 10px 40px;
+    text-decoration: none; 
+}
+
+ul:not(#subitem) { 
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+.container {
+    margin: auto;
+    width: 70%;
+}

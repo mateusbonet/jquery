@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Trabalho</title>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="plugins/carousel.js"></script>
+    <script type="text/javascript" src="plugins/menu.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="plugins/lightBox.js"></script>
+    <script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+    <script src="plugins/jquery.mask.js"></script>
+    <script src="plugins/jquery.validate.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="css/lightBox.css">
+
+    <script type="text/javascript">
+
+        //SCROLL TO TOP
+        function topTop() {
+            var totop = $(window).scrollTop() - 8;
+            if (totop <= 0) {
+                clearInterval(idInterval);
+            } else {
+                totop--;
+                $(window).scrollTop(totop);
+            }
+        }
+        function levTop() {
+            idInterval = setInterval('topTop();', 1);
+        }
+
+        //SCRIPT MENU
+        ddsmoothmenu.init({
+            mainmenuid: "smoothmenu1", //menu DIV id
+            orientation: 'v', //Horizontal or vertical menu: Set to "h" or "v"
+            classname: 'ddsmoothmenu-v', //class added to menu's outer DIV
+            contentsource: "markup", //"markup" or ["container_id", "path_to_menu_file"]
+            method: 'toggle', // set to 'hover' (default) or 'toggle'
+            arrowswap: true
+        })
+
+        //SELECT ESTADO E CIDADE
+        $(document).ready(function () {
+            $.getJSON('estados-cidades.json', function (data) {
+                var itens = '<option name="">- Selecione um estado -</option>';
+                var itensCidades = '<option name="">- Selecione uma cidade -</option>';
+
+                $.each(data.estados, function (key, val) {
+                    itens = itens + '<option value="' + key + '">' + val.nome + '</option>';
+                });
+
+                $('#estado').html(itens);
+                $('#estado').change(function () {
+
+                    itensCidades = '';
+
+                    $.each(data.estados[$(this).val()].cidades, function (key, val) {
+                        itensCidades = itensCidades + '<option value="' + val + '">' + val + '</option>';
+                    });
+
+                    $('#cidade').html(itensCidades);
+                }).change();
+            });
+
+
+            //VOLTAR AO TOPO
+            $("#return-top").on("click", function (event) {
+                levTop();
+            });
+
+
+            //VALIDATE FORM
+            $('#telefone').mask('(99) 99999-9999');
+
+            $("#form1").on("submit", function (event) {
+                event.preventDefault();
+            });
+
+            $('#form1').validate({ // initialize the plugin
+                rules: {
+                    "email": {
+                        required: true,
+                        email: true
+                    },
+                    "telefone": {
+                        required: true
+                    }
+                }
+            });
+
+            //SLIDE CAROUSEL
+            var slideImages = [{ src: 'img/1.jpg' },
+            { src: 'img/2.jpg' },
+            { src: 'img/3.jpg' },
+            { src: 'img/4.jpg' }]
+            //var jR3DCarousel;
+
+            jR3DCarousel = $('.jR3DCarouselGallery').jR3DCarousel({
+                width: 900, 		/* largest allowed width */
+                height: 599, 		/* largest allowed height */
+                slides: slideImages /* array of images source */
+            });
+
+            jR3DCarouselCustomeTemplate = $('.jR3DCarouselGalleryCustomeTemplate').jR3DCarousel();
+        });
+
+
+        //DATEPICKER
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
+
+    <div id="smoothmenu1" class="ddsmoothmenu">
+        <ul>
+            <li><a href="#">Página Inicial</a></li>
+            <li><a href="#">Produtos</a>
+                <ul id="subitem">
+                    <li id="subitem"><a href="#">Perecíveis</a></li>
+                    <li id="subitem"><a href="#">Não-perecíveis</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Cadastro</a></li>
+            <li><a href="#">Quem somos</a></li>
+            <li><a href="#">Contatos</a></li>
+        </ul>
+        <br style="clear: left" />
+    </div>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jR3DCarouselGallery"></div>
+    </div>
+
+    <br /><br />
+
+    <h1>Formulário de Cadastro</h1>
+    <form method="post" action="" id="form1">
+        <label for="nome">Nome: </label>
+        <input type="text" id="nome" name="nome" placeholder="Nome" /><br /><br />
+        <label for="email">E-mail: </label>
+        <input type="text" id="email" name="email" placeholder="E-mail" requerid/><br /><br />
+        <label for="telefone">Telefone: </label>
+        <input type="text" id="telefone" name="telefone" placeholder="Telefone" requerid/><br /><br />
+        <label for="nascimento">Data de Nascimento: </label>
+        <input type="text" id="datepicker" name="nascimento" placeholder="Data de Nascimento" /><br /><br />
+        <label for="estado">Estado: </label>
+        <select id="estado"></select><br /><br />
+        <label for="cidade">Cidade: </label>
+        <select id="cidade"></select><br /><br />
+        <button type="submit">Enviar</button><br /><br />
+    </form>
+
+    <img class='js-lightBox' data-group='group-4' src="img/1.jpg" width="190" height="200" />
+    <img class='js-lightBox' data-group='group-4' src="img/2.jpg" width="190" height="200" />
+    <img class='js-lightBox' data-group='group-4' src="img/3.jpg" width="190" height="200" />
+    <br /><br />
+
+    <script>jQuery(document).ready(function (e) { e.DNLightBox({ speed: 500 }) });</script>
+
+    <script type="text/javascript">
+        function topTop() {
+            var totop = $(window).scrollTop() - 8;
+            if (totop <= 0) {
+                clearInterval(idInterval);
+            } else {
+                totop--;
+                $(window).scrollTop(totop);
+            }
+        }
+        function levTop() {
+            idInterval = setInterval('topTop();', 1);
+        }
+    </script>
+    <button type="submit" id="return-top">Voltar ao topo</button>
+
+</body>
+
+</html>
